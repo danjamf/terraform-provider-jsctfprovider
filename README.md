@@ -30,10 +30,9 @@ terraform {
 }
 
 provider "jsc" {
-
   username = "email@company.com"
-password = "password"
-customerid = "customerid"
+  password = "password"
+  customerid = "customerid"
 }
 
 resource "jsc_oktaidp" "my_okta_config" {
@@ -47,6 +46,11 @@ resource "jsc_uemc" "my_uemc_config" {
   domain = "https://terraform.jamfcloud.com/"
   clientid = "1b752ccb-eaee-4250-a202-a5d1d091053c"
   clientsecret = "bvaKmX7voLbvk7uEWm9ET3-GcST8-rPjpVxAjhniNNBCHRKSdx9EvRGKZmHp66jB"
+}
+
+resource "jsc_blockpage" "myblockpage" {
+  description = "I am the new description for the block page"
+  title = "I am a new title here"
 }
 
 
