@@ -53,6 +53,9 @@ resource "jsc_blockpage" "myblockpage" {
   title = "I am a new title here"
 }
 
-
-
+resource "jsc_ztna" "myztnaapp"{
+  name = "testztna"
+  routeid = "b2fa"
+  hostnames = ["example1.com", "example2.com"]
+}
 ```
