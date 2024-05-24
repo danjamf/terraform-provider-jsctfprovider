@@ -58,4 +58,22 @@ resource "jsc_ztna" "myztnaapp"{
   routeid = "b2fa"
   hostnames = ["example1.com", "example2.com"]
 }
+
+data "jsc_routes" "jscroute001" {
+ name = "Japan"
+}
+
+output "route_shared" {
+  value = data.jsc_routes.jscroute001.shared
+}
+output "route_dc" {
+  value = data.jsc_routes.jscroute001.datacenter
+}
+output "route_name" {
+  value = data.jsc_routes.jscroute001.name
+}
+
+output "route_routeid" {
+  value = data.jsc_routes.jscroute001.routeid
+}
 ```
