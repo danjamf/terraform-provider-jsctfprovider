@@ -42,6 +42,18 @@ resource "jsc_oktaidp" "my_okta_config" {
 
 }
 
+resource "jsc_ap" "myaptry"{
+name = "thisisanactivationprofile"
+oktaconnectionid = jsc_oktaidp.my_okta_config.clientid
+depends_on = [
+    jsc_oktaidp.my_okta_config
+  ]
+}
+
+output "mintedapcode" {
+  value = jsc_ap.myaptry.id
+}
+
 resource "jsc_uemc" "my_uemc_config" {
   domain = "https://terraform.jamfcloud.com/"
   clientid = "1b752ccb-eaee-4250-a202-a5d1d091053c"
