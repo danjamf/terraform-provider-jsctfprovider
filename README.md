@@ -45,6 +45,9 @@ resource "jsc_oktaidp" "my_okta_config" {
 resource "jsc_ap" "myaptry"{
 name = "thisisanactivationprofile"
 oktaconnectionid = jsc_oktaidp.my_okta_config.clientid
+datapolicy = false
+privateaccess = true
+threatdefence = true
 depends_on = [
     jsc_oktaidp.my_okta_config
   ]
