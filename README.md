@@ -66,6 +66,7 @@ resource "jsc_uemc" "my_uemc_config" {
 resource "jsc_blockpage" "myblockpage" {
   description = "I am the new description for the block page"
   title = "I am a new title here"
+  type = "block" //supported block, secureBlock, cap, deviceRisk, or deviceManagement
 }
 
 resource "jsc_ztna" "myztnaapp"{
