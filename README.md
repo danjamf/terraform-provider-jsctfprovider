@@ -90,6 +90,6 @@ output "route_name" {
 }
 
 output "route_routeid" {
-  value = data.jsc_routes.jscroute001.routeid
+  value = data.jsc_routes.jscroute001.id
 }
 ```
