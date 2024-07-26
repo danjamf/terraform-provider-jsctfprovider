@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"log"
+	"net/http"
 	"strings"
 )
 
@@ -57,10 +57,13 @@ func Authenticate(DomainName string, Username string, Password string, Customeri
 	// Make a POST request to authenticate with cookies
 	client := &http.Client{}
 	url := fmt.Sprintf("https://%s/auth/v1/credentials", DomainName)
+	log.Println("[INFO] About to send credentials POST")
+
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		return err
 	}
+	log.Println("[INFO] Sent POST and no error (yet)")
 	for _, cookie := range cookies {
 		req.AddCookie(cookie)
 	}
@@ -75,10 +78,11 @@ func Authenticate(DomainName string, Username string, Password string, Customeri
 	defer resp.Body.Close()
 
 	// Check the response status code
+	log.Println("Status code from auth is ")
+	log.Println(resp.StatusCode)
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("authentication failed: %s", resp.Status)
+		return fmt.Errorf("authentication failed: %s. This provider only support local email:pass combinations and not any SSO/SAML credentials.", resp.Status)
 	}
-
 	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -106,7 +110,7 @@ func Authenticate(DomainName string, Username string, Password string, Customeri
 		//Customerid not provided so attempt to find from endpiint
 		findCustomerid(DomainName)
 	} else {
-	holdCustomerid = Customerid
+		holdCustomerid = Customerid
 	}
 	return nil
 }
@@ -119,7 +123,7 @@ func findCustomerid(DomainName string) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("Error:", err)
-		return 
+		return
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
@@ -145,18 +149,18 @@ func findCustomerid(DomainName string) {
 		return
 	}
 
-	// Parse the response JSON to get the customerid 
+	// Parse the response JSON to get the customerid
 	// Unmarshal JSON into a map[string]interface{}
-    var result map[string]interface{}
-    jsonerr := json.Unmarshal(body, &result)
-    if err != nil {
-        fmt.Println("Error:", jsonerr)
-        return
-    }
+	var result map[string]interface{}
+	jsonerr := json.Unmarshal(body, &result)
+	if err != nil {
+		fmt.Println("Error:", jsonerr)
+		return
+	}
 
-    // Extract entityId
-    entityId := result["admin"].(map[string]interface{})["entityId"].(string)
-    fmt.Println("CusomterID:", entityId)
+	// Extract entityId
+	entityId := result["admin"].(map[string]interface{})["entityId"].(string)
+	fmt.Println("CusomterID:", entityId)
 	holdCustomerid = entityId
 }
 func MakeRequest(req *http.Request) (*http.Response, error) {
