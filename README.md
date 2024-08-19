@@ -15,6 +15,14 @@ Add `~/.terraformrc` for dev overrides. Example config
 }
 ```
 
+## Docs
+
+Make a change and use terraform docs to make it nice
+
+```go generate ./...
+
+```
+
 ## Running
 
 Create a `main.tf`. You will not need to `terraform init` when using the above overrides.
