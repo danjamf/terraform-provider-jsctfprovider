@@ -19,7 +19,8 @@ Add `~/.terraformrc` for dev overrides. Example config
 
 Make a change and use terraform docs to make it nice
 
-```go generate ./...
+```
+go generate ./...
 
 ```
 
