@@ -210,7 +210,7 @@ func ResourceActivationProfile() *schema.Resource {
 			"networkrelay": {
 				Type:     schema.TypeBool,
 				Optional: true,
-				Default:  true,
+				Default:  false,
 			},
 			"threatdefence": {
 				Type:     schema.TypeBool,
