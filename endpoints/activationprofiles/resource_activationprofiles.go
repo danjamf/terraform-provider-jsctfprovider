@@ -69,6 +69,9 @@ type Data struct {
 		PrivateAccess struct {
 			Enabled bool `json:"enabled"`
 		} `json:"privateAccess"`
+		NetworkRelay struct {
+			Enabled bool `json:"enabled"`
+		} `json:"networkRelay"`
 		ThreatDefence struct {
 			Enabled bool `json:"enabled"`
 		} `json:"threatDefence"`
@@ -99,7 +102,7 @@ type Data struct {
 	} `json:"capabilities"`
 }
 
-func makepayloadstruct(activationprofilename string, idpconnectionid string, privateaccess bool, threatdefence bool, datapolicy bool) Data {
+func makepayloadstruct(activationprofilename string, idpconnectionid string, privateaccess bool, networkrelay bool, threatdefence bool, datapolicy bool) Data {
 	// Create an instance of the Data struct
 
 	data := Data{
@@ -126,6 +129,7 @@ func makepayloadstruct(activationprofilename string, idpconnectionid string, pri
 	data.Capabilities.DeviceIdentity.Enabled = false
 	data.Capabilities.PhysicalAccess.Enabled = false
 	data.Capabilities.PrivateAccess.Enabled = privateaccess
+	data.Capabilities.NetworkRelay.Enabled = networkrelay
 	data.Capabilities.DataPolicy.Enabled = datapolicy
 	data.Capabilities.ThreatDefence.Enabled = threatdefence
 	data.Capabilities.Wireguard.Enabled = false
@@ -148,7 +152,7 @@ func makepayloadstruct(activationprofilename string, idpconnectionid string, pri
 	// Populate Licenced Amalgams
 	data.LicencedAmalgams = []LicencedAmalgam{
 		{
-			ServiceCapabilityCombination: []string{"deviceIdentity", "dataPolicy", "privateAccess"},
+			ServiceCapabilityCombination: []string{"deviceIdentity", "dataPolicy", "privateAccess", "networkRelay"},
 			CloudProxy:                   nil,
 			Platforms:                    []string{"Mac"},
 			InAppDnsControl:              []string{"REQUIRED"},
@@ -199,6 +203,11 @@ func ResourceActivationProfile() *schema.Resource {
 				Description: "Okta Connection ID.",
 			},
 			"privateaccess": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  true,
+			},
+			"networkrelay": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				Default:  true,
@@ -256,7 +265,7 @@ func ResourceActivationProfile() *schema.Resource {
 
 // Define the create function for the UEMC resource
 func resourceAPCreate(d *schema.ResourceData, m interface{}) error {
-	data := makepayloadstruct(d.Get("name").(string), d.Get("oktaconnectionid").(string), d.Get("privateaccess").(bool), d.Get("threatdefence").(bool), d.Get("datapolicy").(bool))
+	data := makepayloadstruct(d.Get("name").(string), d.Get("oktaconnectionid").(string), d.Get("privateaccess").(bool), d.Get("networkrelay").(bool), d.Get("threatdefence").(bool), d.Get("datapolicy").(bool))
 
 	payload, err := json.Marshal(data)
 	if err != nil {
