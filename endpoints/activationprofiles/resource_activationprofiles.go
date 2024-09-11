@@ -199,7 +199,7 @@ func ResourceActivationProfile() *schema.Resource {
 			},
 			"oktaconnectionid": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Required:    false,
 				Description: "Okta Connection ID.",
 			},
 			"privateaccess": {
