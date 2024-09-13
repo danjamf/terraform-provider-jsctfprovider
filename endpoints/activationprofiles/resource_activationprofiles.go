@@ -109,7 +109,7 @@ func makepayloadstruct(activationprofilename string, idpconnectionid string, pri
 		Name:             activationprofilename,
 		GroupId:          "DEFAULT",
 		ActiveTab:        "INTUNE",
-		LocationServices: "BEST_EFFORT",
+		LocationServices: "DISABLED",
 		CloudProxy:       "NONE",
 		InAppDnsControl:  "REQUIRED",
 		RootCertificates: RootCertificates{
@@ -143,6 +143,10 @@ func makepayloadstruct(activationprofilename string, idpconnectionid string, pri
 	data.Idp.Type = "OKTA"
 	data.Idp.ConnectionId = idpconnectionid
 	data.Idp.ExternalIdAdoption = nil
+
+	if networkrelay {
+		data.Idp.ExternalIdAdoption = nil //changing the input for Network Relay
+	}
 
 	//management
 	data.Management.TimeZone = "America/Los_Angeles"
@@ -199,7 +203,7 @@ func ResourceActivationProfile() *schema.Resource {
 			},
 			"oktaconnectionid": {
 				Type:        schema.TypeString,
-				Required:    false,
+				Required:    true,
 				Description: "Okta Connection ID.",
 			},
 			"privateaccess": {
@@ -210,7 +214,7 @@ func ResourceActivationProfile() *schema.Resource {
 			"networkrelay": {
 				Type:     schema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:  true,
 			},
 			"threatdefence": {
 				Type:     schema.TypeBool,
