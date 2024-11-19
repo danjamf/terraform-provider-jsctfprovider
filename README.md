@@ -15,6 +15,10 @@ Add `~/.terraformrc` for dev overrides. Example config
 }
 ```
 
+## Auth
+
+N.b. Any resource or datasource types prefixed with "pag" require Risk API credentials from RADAR. All other resources use JSC's username:password.
+
 ## Docs
 
 Make a change and use terraform docs to make it nice
