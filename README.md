@@ -17,7 +17,7 @@ Add `~/.terraformrc` for dev overrides. Example config
 
 ## Auth
 
-N.b. Any resource or datasource types prefixed with "pag" require Risk API credentials (API ID and secret) from RADAR. All other resources use JSC's username:password.
+N.b. Any resource or datasource types prefixed with "pag" (Public API Gateway) require Risk API credentials (API ID and secret) from RADAR. All other resources use JSC's username:password.
 
 ## Docs
 
