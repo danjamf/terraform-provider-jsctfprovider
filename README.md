@@ -17,7 +17,7 @@ Add `~/.terraformrc` for dev overrides. Example config
 
 ## Auth
 
-N.b. Any resource or datasource types prefixed with "pag" require Risk API credentials from RADAR. All other resources use JSC's username:password.
+N.b. Any resource or datasource types prefixed with "pag" (Public API Gateway) require Risk API credentials (API ID and secret) from RADAR. All other resources use JSC's username:password.
 
 ## Docs
 
@@ -46,6 +46,9 @@ provider "jsc" {
   username = "email@company.com"
   password = "password"
   customerid = "customerid"
+  applicationid     = "example"
+  applicationsecret = "T(examaples@d#Ejt#"
+
 }
 
 resource "jsc_oktaidp" "my_okta_config" {
