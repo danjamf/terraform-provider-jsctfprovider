@@ -187,6 +187,10 @@ func AuthenticateRadarAPI(DomainName string, Username string, Password string, C
 		}
 	}
 
+	if sessionCookie == "" {
+		return fmt.Errorf("RADAR authentication succeeded (HTTP %s) but no SESSION cookie was returned", resp.Status)
+	}
+
 	if Customerid == "empty" {
 		//Customerid not provided so attempt to find from endpiint
 		findCustomerid(DomainName)

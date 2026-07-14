@@ -105,7 +105,7 @@ func resourceBlockPageCreate(d *schema.ResourceData, m interface{}) error {
 	resp, err := auth.MakeRequest((req))
 
 	if err != nil {
-		return fmt.Errorf("an error occurred: %s", "additional information3")
+		return fmt.Errorf("an error occurred: %s", err.Error())
 	}
 	defer resp.Body.Close()
 	// Check the response status code
