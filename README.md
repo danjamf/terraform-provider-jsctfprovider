@@ -44,8 +44,8 @@ Create a `main.tf`. You will not need to `terraform init` when using the above o
 terraform {
   required_providers {
     jsc = {
-      source  = "jsctf"
-      version = "1.0.0"
+      source  = "Jamf-Concepts/jsctfprovider"
+      version = "~> 0.1.6"
     }
   }
 }

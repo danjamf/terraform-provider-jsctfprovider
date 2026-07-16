@@ -15,8 +15,8 @@ description: |-
 terraform {
   required_providers {
     jsc = {
-      source  = "jsctf"
-      version = "1.0.0"
+      source  = "Jamf-Concepts/jsctfprovider"
+      version = "~> 0.1.6"
     }
 
   }
