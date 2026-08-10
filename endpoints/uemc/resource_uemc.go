@@ -89,15 +89,15 @@ func resourceUEMCCreate(d *schema.ResourceData, m interface{}) error {
 	}
 	defer resp.Body.Close()
 
-	// Check the response status code
-	if resp.StatusCode != http.StatusOK && resp.StatusCode != 200 {
-		return fmt.Errorf("failed to create UEMC Connection: %s", resp.Status+" "+string(payload))
-	}
-
 	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+
+	// Check the response status code
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != 200 {
+		return fmt.Errorf("failed to create UEMC Connection: %s - %s", resp.Status, string(body))
 	}
 
 	// Parse the response JSON
@@ -134,15 +134,15 @@ func resourceUEMCRead(d *schema.ResourceData, m interface{}) error {
 	}
 	defer resp.Body.Close()
 
-	// Check the response status code
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("failed to read UEMC info: %s", resp.Status)
-	}
-
 	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+
+	// Check the response status code
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to read UEMC info: %s - %s", resp.Status, string(body))
 	}
 
 	// Parse the response JSON and extract the ID
