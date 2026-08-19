@@ -525,7 +525,10 @@ func ResourceActivationProfile() *schema.Resource {
 				ValidateFunc: validateIdP,
 				Default:      "None",
 				ForceNew:     true,
-				Description:  "Allowed values of 'Okta', 'None, or 'NetworkRelay'. If NetworkRelay is selected, only Private Access will be enabled",
+				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+					return strings.EqualFold(old, new)
+				},
+				Description: "Allowed values of 'Okta', 'None, or 'NetworkRelay'. If NetworkRelay is selected, only Private Access will be enabled",
 			},
 			"oktaconnectionid": {
 				Type:        schema.TypeString,
