@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to this provider are documented here, generated retroactively from commit history.
-
 ## v0.1.8
 
 - Fixed `jsc_ap` `idptype` causing perpetual replace on case-only diffs
