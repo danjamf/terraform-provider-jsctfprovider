@@ -2,6 +2,11 @@
 
 All notable changes to this provider are documented here, generated retroactively from commit history.
 
+## v0.1.8
+
+- Fixed `jsc_ap` `idptype` causing perpetual replace on case-only diffs
+- Fixed `jsc_uemc` create/read errors to surface the actual API response body
+
 ## v0.1.7
 
 - Improved RADAR auth error handling to surface real authentication failures instead of masking them
